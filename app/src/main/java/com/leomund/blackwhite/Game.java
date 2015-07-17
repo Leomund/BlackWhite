@@ -1,6 +1,8 @@
 package com.leomund.blackwhite;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -64,12 +66,35 @@ public class Game extends Activity{
 
     private void over(Button b) {
         b.setBackgroundResource(R.drawable.button_red);
+        scoreView.setVisibility(View.INVISIBLE);
 
-        score -= 10;
-        scoreView.setText("Score: " + String.valueOf(score));
+        new AlertDialog.Builder(this)
+                .setTitle("Game over...")
+                .setMessage("Your score: " + score)
+                .setCancelable(false)
+
+                .setPositiveButton(R.string.restart, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        start();
+                    }
+                })
+                .setNegativeButton(R.string.exit, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .show();
     }
 
     private void start(){
+        score = 0;
+        scoreView.setVisibility(View.VISIBLE);
+
+        for (int i = 1; i < 17; i++) {
+            Button button = (Button) findViewById(getResources().getIdentifier("button" + String.valueOf(i), "id", getPackageName()));
+            button.setBackgroundResource(R.drawable.button_white);
+        }
+
         for (int i = 1; i < 5; i++) {
             Button button = (Button) findViewById(getResources().getIdentifier("button" + String.valueOf(i*4-((int)(Math.random()*3)+1)), "id", getPackageName()));
             button.setBackgroundResource(R.drawable.button_black);
