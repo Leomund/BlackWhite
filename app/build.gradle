@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.leomund.blackwhite"
-        minSdkVersion 21
+        minSdkVersion 22
         targetSdkVersion 22
         versionCode 22
         versionName "1.0"
