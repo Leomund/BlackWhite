@@ -24,6 +24,8 @@ public class MainActivity extends Activity {
 
                 Intent intent = new Intent(MainActivity.this, Game.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+
             }
         });
     }

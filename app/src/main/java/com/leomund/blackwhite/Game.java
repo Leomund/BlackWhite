@@ -8,10 +8,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 
 public class Game extends Activity{
 
     Button[] buttons = new Button[17];
+
+    int startTime;
+    int time;
+    float cpm;
 
     TextView scoreView;
     static int score = 0;
@@ -68,9 +74,9 @@ public class Game extends Activity{
         b.setBackgroundResource(R.drawable.button_red);
         scoreView.setVisibility(View.INVISIBLE);
 
-        new AlertDialog.Builder(this)
+        AlertDialog show = new AlertDialog.Builder(this)
                 .setTitle("Game over...")
-                .setMessage("Your score: " + score)
+                .setMessage("Your score: " + score + "\nYour CPM: " + String.format("%.1f", cpm))
                 .setCancelable(false)
 
                 .setPositiveButton(R.string.restart, new DialogInterface.OnClickListener() {
@@ -100,6 +106,7 @@ public class Game extends Activity{
             Button button = (Button) findViewById(getResources().getIdentifier("button" + String.valueOf(i*4-((int)(Math.random()*3)+1)), "id", getPackageName()));
             button.setBackgroundResource(R.drawable.button_black);
         }
+        startTime = (int) System.currentTimeMillis();
     }
 
     private void move(Button b){
@@ -121,5 +128,8 @@ public class Game extends Activity{
 
         score += 1;
         scoreView.setText("Score: " + String.valueOf(score));
+
+        time = (int) System.currentTimeMillis() - startTime;
+        cpm = score*1000/Float.valueOf(time) * 60;
     }
 }
