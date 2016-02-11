@@ -94,6 +94,7 @@ public class Game extends Activity{
 
     private void start(){
         score = 0;
+        cpm = 0;
         scoreView.setText("Score: " + String.valueOf(score));
         scoreView.setVisibility(View.VISIBLE);
 
